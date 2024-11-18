@@ -1,20 +1,25 @@
 .RECIPEPREFIX = ~
 CC = cc
-CFLAGS = -Wall -Werror -Wextra 
+CFLAGS = -Wall -Wextra -Werror
+AFLAGS = -lmlx -lX11 -lXext -lm -LLibft -lft
 NAME = fractol
-SRC =
-OBJ = (SRC:.c=.o)
+SRC = main.c Mandelbrot.c utils.c
+LIBFT = Libft/libft.a
 
-all : ${NAME}
+all: $(NAME) 
 
-${NAME}; ${OBJ}
-~@ar rcs $@ $<
+$(NAME): $(LIBFT)
+~@$(CC) $(CFLAGS) $(SRC) $(AFLAGS) -o $(NAME)
 
 clean:
-~@rm -f ${OBJ}
+~@make -C Libft clean
 
 fclean: clean
-~@rm -f ${NAME}
+~@rm -f $(NAME)
+~@make -C Libft fclean
+
+$(LIBFT):
+~@make -C Libft
 
 re: fclean all
 
