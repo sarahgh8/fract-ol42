@@ -5,10 +5,19 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
-#include "Libft/libft.h"
+# include "Libft/libft.h"
+# include "Libft/ft_printf/ft_printf.h"
 
 #define WIDTH 750
 #define HEIGHT 750
+
+// typedef struct s_displaysettings
+// {
+//     double scale;
+//     double x;
+//     double y; 
+
+// }t_displaysettings;
 
 typedef struct s_base
 {
@@ -36,15 +45,11 @@ typedef struct s_vars
     int i;
 }   t_vars;
 
-typedef struct s_keyarrows
-{
-    int x;
-    int y;
-}   t_keyarrows;
 
 void draw_mandelbrot(void *mlx, void *win);
 int is_escaping_mandel(double x, double yi);
 void get_coord(double *x, double *y);
-int key_events(int keycode, t_base *base, t_keyarrows *k);
+int key_events(int keycode, t_base *base);
+int destroy(t_base *base);
 
 #endif

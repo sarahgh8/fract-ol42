@@ -1,13 +1,5 @@
 #include "fractol.h"
 
-void get_coord(double *c_x, double *c_yi)
-{
-    *c_x -= (WIDTH / 2);
-    *c_yi -= (HEIGHT / 2); 
-    *c_yi *= -0.005;
-    *c_x *= 0.005;
-}
-
 int is_escaping_mandel(double c_x, double c_yi)
 {
     t_vars v;
@@ -17,7 +9,7 @@ int is_escaping_mandel(double c_x, double c_yi)
     z.yi = 0;
     double real_z_temp = 0;
 
-    while(v.i < 25)
+    while(v.i < 25) // z = z^2 + c ==> (a  + bi)^2 + (x + yi)
     {
         real_z_temp = (z.x*z.x) - (z.yi*z.yi) + c_x;
         z.yi = (2 * z.x * z.yi) + c_yi;
@@ -37,9 +29,6 @@ void draw_mandelbrot(void *mlx, void *win)
     v.x = 0;
     v.y = 0;
     v.i = 0;
-    // t_keyarrows k;
-    // k.x = 0;
-    // k.y = 0;
     while(v.y < HEIGHT)
     {
         while(v.x < WIDTH)
@@ -48,7 +37,7 @@ void draw_mandelbrot(void *mlx, void *win)
             c.yi = v.y; 
             get_coord(&c.x, &c.yi);
             if((v.i = is_escaping_mandel(c.x, c.yi)))
-                mlx_pixel_put(mlx, win, v.x, v.y, 0x0000ff + v.i*10);
+                mlx_pixel_put(mlx, win, v.x, v.y, 0X0000FF + v.i*10);
             else
                 mlx_pixel_put(mlx, win, v.x, v.y, 000);
             v.x++;

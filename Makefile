@@ -1,7 +1,7 @@
 .RECIPEPREFIX = ~
 CC = cc
 CFLAGS = -Wall -Wextra -Werror
-AFLAGS = -lmlx -lX11 -lXext -lm -LLibft -lft
+AFLAGS = -lmlx -lX11 -lXext -lm -LLibft -lft -L Libft/ft_printf -lftprintf
 NAME = fractol
 SRC = main.c Mandelbrot.c utils.c
 LIBFT = Libft/libft.a

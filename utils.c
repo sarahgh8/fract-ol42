@@ -1,31 +1,25 @@
 #include "fractol.h"
 
-int key_events(int keycode, t_base *base, t_keyarrows *k)
+int destroy(t_base *base)
 {
-    printf("keycode: %d\n", keycode);
+    mlx_destroy_window(base->mlx, base->win);
+    mlx_destroy_display(base->mlx);
+    free(base->mlx);                  
+    exit(0);                              
+}
+int key_events(int keycode, t_base *base)
+{
+    ft_printf("keycode: %d\n", keycode);
     if (keycode == 65307)
     {
-        mlx_clear_window(base->mlx, base->win);
-        mlx_destroy_window(base->mlx, base->win);
-        free(base);                  
-        exit(0);                              
+        destroy(base);                             
     }
-    else if(keycode == 65362) // up
-    {
-        k->y -= 10;
-    }
-    else if(keycode == 65364) // down
-    {
-        k->y += 10;
-    }
-    else if(keycode == 65361) // left
-    {
-        k->x -= 10;
-    }
-    else if(keycode == 65363) // right
-    {
-        k->x += 10;
-    }
-    
     return (0);
+}
+void get_coord(double *c_x, double *c_yi)
+{
+    *c_x -= (WIDTH / 2);
+    *c_yi -= (HEIGHT / 2); 
+    *c_yi *= -0.005;
+    *c_x *= 0.005;
 }

@@ -7,17 +7,23 @@ ft_substr.c ft_tolower.c ft_toupper.c ft_strtrim.c ft_itoa.c
 OBJ = $(SRC:.c=.o)
 NAME = libft.a
 CFLAGS = -Wall -Wextra -Werror
+PRINTF = ft_printf/libftprintf.a
 
 all: ${NAME}
 
-${NAME}: ${OBJ}
+${NAME}: ${PRINTF} ${OBJ} 
 ~@ar rcs ${NAME} ${OBJ}
+
+${PRINTF}:
+~@make -C ft_printf
 
 clean:
 ~@rm -f ${OBJ}
+~@make -C ft_printf clean
 
 fclean : clean
 ~@rm -f ${NAME}
+~@make -C ft_printf fclean
 
 re : fclean all
 
