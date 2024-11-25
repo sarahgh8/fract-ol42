@@ -5,8 +5,6 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
-# include "Libft/libft.h"
-# include "Libft/ft_printf/ft_printf.h"
 
 #define WIDTH 750
 #define HEIGHT 750

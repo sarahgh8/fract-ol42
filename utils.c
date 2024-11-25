@@ -9,7 +9,7 @@ int destroy(t_base *base)
 }
 int key_events(int keycode, t_base *base)
 {
-    ft_printf("keycode: %d\n", keycode);
+    // printf("key pressed: %d\n", keycode);
     if (keycode == 65307)
     {
         destroy(base);                             
