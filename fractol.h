@@ -5,23 +5,26 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
+#include <X11/X.h>
 
 #define WIDTH 750
 #define HEIGHT 750
 
-// typedef struct s_displaysettings
-// {
-//     double scale;
-//     double x;
-//     double y; 
+typedef struct s_displaysettings
+{
+    double scale;
+    double x;
+    double y; 
 
-// }t_displaysettings;
+}t_displaysettings;
 
 typedef struct s_base
 {
     void *mlx;
     void *win;
     void *img;
+    t_displaysettings settings;
+
 }   t_base;
 
 typedef struct s_ccomplex
@@ -43,10 +46,15 @@ typedef struct s_vars
     int i;
 }   t_vars;
 
-
-void draw_mandelbrot(void *mlx, void *win);
+typedef struct s_imgdata
+{
+    int bits_per_pixel;
+	int size_line;
+    int endian;
+}t_imgdata;
+void draw_mandelbrot(void *mlx, void *win, void *img, t_displaysettings settings);
 int is_escaping_mandel(double x, double yi);
-void get_coord(double *x, double *y);
+void get_coord(double *x, double *y, t_displaysettings settings);
 int key_events(int keycode, t_base *base);
 int destroy(t_base *base);
 

@@ -22,10 +22,23 @@ int is_escaping_mandel(double c_x, double c_yi)
     return 0;
 }
 
-void draw_mandelbrot(void *mlx, void *win)
+void draw_mandelbrot(void *mlx, void *win, void *img, t_displaysettings settings)
 {
     t_vars v;
     t_ccomplex c;
+    t_imgdata img_data = {0, 0, 0};
+
+    printf("%d \n", img_data.bits_per_pixel);
+    printf("%d \n", img_data.size_line);
+    printf("%d \n", img_data.endian);
+
+    char *image = mlx_get_data_addr(img, &img_data.bits_per_pixel, &img_data.size_line, &img_data.endian);
+    printf("%s\n", image);
+
+    printf("%d \n", img_data.bits_per_pixel);
+    printf("%d \n", img_data.size_line);
+    printf("%d \n", img_data.endian);
+
     v.x = 0;
     v.y = 0;
     v.i = 0;
@@ -33,11 +46,11 @@ void draw_mandelbrot(void *mlx, void *win)
     {
         while(v.x < WIDTH)
         {
-            c.x = v.x - 100;
-            c.yi = v.y; 
-            get_coord(&c.x, &c.yi);
+            c.x = v.x;
+            c.yi = v.y;
+            get_coord(&c.x, &c.yi, settings);
             if((v.i = is_escaping_mandel(c.x, c.yi)))
-                mlx_pixel_put(mlx, win, v.x, v.y, 0X0000FF + v.i*10);
+                mlx_pixel_put(mlx, win, v.x, v.y, 0XFCBE11 * v.i);
             else
                 mlx_pixel_put(mlx, win, v.x, v.y, 000);
             v.x++;
