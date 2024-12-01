@@ -9,35 +9,23 @@ int is_escaping_mandel(double c_x, double c_yi)
     z.yi = 0;
     double real_z_temp = 0;
 
-    while(v.i < 25) // z = z^2 + c ==> (a  + bi)^2 + (x + yi)
+    while(v.i < 50) // z = z^2 + c ==> (a  + bi)^2 + (x + yi)
     {
         real_z_temp = (z.x*z.x) - (z.yi*z.yi) + c_x;
         z.yi = (2 * z.x * z.yi) + c_yi;
         z.x = real_z_temp;
         
-        if(pow(z.x, 2)+pow(z.yi, 2) > 4)
+        if((z.x*z.x)+(z.yi*z.yi) > 4)
             return v.i;
         v.i++;
     }
     return 0;
 }
 
-void draw_mandelbrot(void *mlx, void *win, void *img, t_displaysettings settings)
+void draw_mandelbrot(void *mlx, void *win, t_displaysettings settings)
 {
     t_vars v;
     t_ccomplex c;
-    t_imgdata img_data = {0, 0, 0};
-
-    printf("%d \n", img_data.bits_per_pixel);
-    printf("%d \n", img_data.size_line);
-    printf("%d \n", img_data.endian);
-
-    char *image = mlx_get_data_addr(img, &img_data.bits_per_pixel, &img_data.size_line, &img_data.endian);
-    printf("%s\n", image);
-
-    printf("%d \n", img_data.bits_per_pixel);
-    printf("%d \n", img_data.size_line);
-    printf("%d \n", img_data.endian);
 
     v.x = 0;
     v.y = 0;

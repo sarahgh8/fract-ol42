@@ -5,10 +5,12 @@
 # include <stdlib.h>
 # include <stdio.h>
 # include <math.h>
-#include <X11/X.h>
+#include <unistd.h>
 
 #define WIDTH 750
 #define HEIGHT 750
+# define PLUS 65451
+# define MINUS 65453 
 
 typedef struct s_displaysettings
 {
@@ -46,16 +48,21 @@ typedef struct s_vars
     int i;
 }   t_vars;
 
-typedef struct s_imgdata
-{
-    int bits_per_pixel;
-	int size_line;
-    int endian;
-}t_imgdata;
-void draw_mandelbrot(void *mlx, void *win, void *img, t_displaysettings settings);
+// typedef struct s_imgdata
+// {
+//     int bits_per_pixel;
+// 	int size_line;
+//     int endian;
+// }t_imgdata;
+
+void draw_mandelbrot(void *mlx, void *win, t_displaysettings settings);
 int is_escaping_mandel(double x, double yi);
 void get_coord(double *x, double *y, t_displaysettings settings);
 int key_events(int keycode, t_base *base);
 int destroy(t_base *base);
+int mouse_events(int button, t_base *base);
+int ft_strcmp(char *arg, char *str);
+void ft_putstr(char *str);
+
 
 #endif

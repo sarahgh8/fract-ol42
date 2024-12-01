@@ -3,7 +3,7 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 AFLAGS = -lmlx -lX11 -lXext -lm
 NAME = fractol
-SRC = main.c Mandelbrot.c utils.c
+SRC = main.c Mandelbrot.c utils.c strmanip.c
 OBJ = $(SRC:.c=.o)
 
 all: $(NAME) 

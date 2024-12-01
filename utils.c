@@ -16,29 +16,34 @@ int key_events(int keycode, t_base *base)
     }
     else if (keycode == 65362) // up
     {
-        base->settings.y += 10;
+        base->settings.y += 0.01;
     }
     else if (keycode == 65364) // down
     {
-        base->settings.y -= 10;
+        base->settings.y -= 0.01;
     }
     else if (keycode == 65363) // right 
     {
-        base->settings.x -= 10;
+        base->settings.x -= 0.01;
     }
     else if (keycode == 65361) //left
     {
-        base->settings.x += 10;
+        base->settings.x += 0.01;
     }
-    draw_mandelbrot(base->mlx, base->win, base->img, base->settings);
+    else if (keycode == 65451) // plus
+    {
+        base->settings.scale -= 0.0001;
+    }
+    else if (keycode == 65453) // minus
+    {
+        base->settings.scale += 0.0001;
+    }
+
+    draw_mandelbrot(base->mlx, base->win, base->settings);
     return (0);
 }
 void get_coord(double *c_x, double *c_yi, t_displaysettings settings)
 {
-    *c_x += settings.x;
-    *c_yi += settings.y;
-    *c_x -= (WIDTH / 2);
-    *c_yi -= (HEIGHT / 2); 
-    *c_yi *= -0.005;
-    *c_x *= 0.005;
+    *c_x = settings.x + ((*c_x - WIDTH / 2) * settings.scale);
+    *c_yi = -settings.y + ((*c_yi - HEIGHT / 2) * settings.scale);
 }
