@@ -3,19 +3,23 @@ CC = cc
 CFLAGS = -Wall -Wextra -Werror
 AFLAGS = -lmlx -lX11 -lXext -lm
 NAME = fractol
-SRC = main.c Mandelbrot.c utils.c strmanip.c
-OBJ = $(SRC:.c=.o)
+SRC = main.c Mandelbrot.c utils.c str_math_manip.c
+OBJ_DIR = obj
+OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 
-all: $(NAME) 
+all: $(NAME)
 
 $(NAME): $(OBJ)
 ~@$(CC) $(CFLAGS) $(OBJ) $(AFLAGS) -o $(NAME)
 
-%.o: %.c
-~@$(CC) $(CFLAGS) -c $<
+$(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
+~@$(CC) $(CFLAGS) -c $< -o $@
+
+$(OBJ_DIR):
+~@mkdir -p $(OBJ_DIR)
 
 clean:
-~@rm -f $(OBJ)
+~@rm -rf $(OBJ_DIR)
 
 fclean: clean
 ~@rm -f $(NAME)

@@ -10,40 +10,83 @@ int destroy(t_base *base)
 int key_events(int keycode, t_base *base)
 {
     // printf("key pressed: %d\n", keycode);
+
     if (keycode == 65307)
     {
         destroy(base);                             
     }
     else if (keycode == 65362) // up
     {
-        base->settings.y += 0.01;
+        base->y -= SHIFTING_SCALES;
     }
     else if (keycode == 65364) // down
     {
-        base->settings.y -= 0.01;
+        base->y += SHIFTING_SCALES;
     }
     else if (keycode == 65363) // right 
     {
-        base->settings.x -= 0.01;
+        base->x -= SHIFTING_SCALES;
     }
     else if (keycode == 65361) //left
     {
-        base->settings.x += 0.01;
-    }
-    else if (keycode == 65451) // plus
-    {
-        base->settings.scale -= 0.0001;
-    }
-    else if (keycode == 65453) // minus
-    {
-        base->settings.scale += 0.0001;
+        base->x += SHIFTING_SCALES;
     }
 
-    draw_mandelbrot(base->mlx, base->win, base->settings);
+    draw_mandelbrot(base->mlx, base->win, *base);
     return (0);
 }
-void get_coord(double *c_x, double *c_yi, t_displaysettings settings)
+
+void get_coord(double *c_x, double *c_yi, t_base base)
 {
-    *c_x = settings.x + ((*c_x - WIDTH / 2) * settings.scale);
-    *c_yi = -settings.y + ((*c_yi - HEIGHT / 2) * settings.scale);
+    *c_x = base.x + ((*c_x - WIDTH / 2.0) / base.scale);
+    *c_yi = base.y - ((*c_yi - HEIGHT / 2.0) / base.scale);
 }
+
+int mouse_events(int mousecode, int x, int y, t_base *base)
+{
+    double cursor_x = x;
+    double cursor_y = y; 
+
+
+    get_coord(&cursor_x, &cursor_y, *base);
+
+    if (mousecode == 5) 
+    {
+        base->scale /= 1.2;
+        base->x = cursor_x - (cursor_x - base->x) * 1.2; 
+        base->y = cursor_y - (cursor_y - base->y) * 1.2;
+    }
+    else if (mousecode == 4) 
+    {
+        base->scale *= 1.2; 
+        base->x = cursor_x - (cursor_x - base->x) / 1.2; 
+        base->y = cursor_y - (cursor_y - base->y) / 1.2;
+    }
+
+    draw_mandelbrot(base->mlx, base->win, *base);
+
+    return 0;
+// void get_coord(double *c_x, double *c_yi, t_base base)
+// {
+//     *c_x = base.x + ((*c_x - WIDTH / 2) / base.scale);
+//     *c_yi = -base.y + ((*c_yi - HEIGHT / 2) / base.scale);
+// }
+
+// int mouse_events(int mousecode, t_base *base)
+// {
+//     // printf("%d\n", mousecode);
+
+//     if(mousecode == 5) // scroll down zoom out
+//     {
+//         base->scale *= 1.05;
+//     }
+//     else if (mousecode == 4) // scroll up zoom in
+//     {
+//         base->scale /= 1.05;
+//     }
+//     draw_mandelbrot(base->mlx, base->win, *base);
+//     return 0;
+// }
+}
+
+// int pixels_buffer(int offset, )

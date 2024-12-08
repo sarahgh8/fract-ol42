@@ -22,7 +22,7 @@ int is_escaping_mandel(double c_x, double c_yi)
     return 0;
 }
 
-void draw_mandelbrot(void *mlx, void *win, t_displaysettings settings)
+void draw_mandelbrot(void *mlx, void *win, t_base base)
 {
     t_vars v;
     t_ccomplex c;
@@ -36,7 +36,7 @@ void draw_mandelbrot(void *mlx, void *win, t_displaysettings settings)
         {
             c.x = v.x;
             c.yi = v.y;
-            get_coord(&c.x, &c.yi, settings);
+            get_coord(&c.x, &c.yi, base);
             if((v.i = is_escaping_mandel(c.x, c.yi)))
                 mlx_pixel_put(mlx, win, v.x, v.y, 0XFCBE11 * v.i);
             else
