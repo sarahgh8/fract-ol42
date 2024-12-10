@@ -12,11 +12,11 @@ int main (int argc, char **argv)
     else
     {
         t_base base;
-        // t_imgdata img;
 
         base.x = -0.5;
         base.y = 0.0;
         base.scale = 200;
+        base.iteri = 50;
 
         base.mlx = mlx_init();
         if(!base.mlx)
@@ -24,7 +24,8 @@ int main (int argc, char **argv)
 
         
         base.win = mlx_new_window(base.mlx, WIDTH, HEIGHT, "Fract-ol");
-        base.img = mlx_new_image(base.win, WIDTH, HEIGHT);
+        base.img = mlx_new_image(base.mlx, WIDTH, HEIGHT);
+        base.image.buffer = (int *)mlx_get_data_addr(base.img, &base.image.bits_per_pixel, &base.image.size_line, &base.image.endian);
         
         if(!base.win)
             destroy(&base);
@@ -32,7 +33,7 @@ int main (int argc, char **argv)
     
         if(ft_strcmp(argv[1],"mandelbrot") || ft_strcmp(argv[1],"mandel") || ft_strcmp(argv[1],"Mandelbrot") || ft_strcmp(argv[1],"Mandel")) 
         {
-            draw_mandelbrot(base.mlx, base.win, base);
+            // draw_mandelbrot(&base);
         }
         else
         {
@@ -44,7 +45,7 @@ int main (int argc, char **argv)
         mlx_mouse_hook(base.win, mouse_events, &base);
         mlx_hook(base.win, 2, 1L<<0, key_events, &base);
         mlx_hook(base.win, 17, 0, destroy, &base);
-        
+        mlx_loop_hook(base.mlx, draw_mandelbrot, &base);
         mlx_loop(base.mlx);
 
     }

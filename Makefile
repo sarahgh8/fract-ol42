@@ -10,19 +10,19 @@ OBJ = $(addprefix $(OBJ_DIR)/, $(SRC:.c=.o))
 all: $(NAME)
 
 $(NAME): $(OBJ)
-~@$(CC) $(CFLAGS) $(OBJ) $(AFLAGS) -o $(NAME)
+~$(CC) $(CFLAGS) $(OBJ) $(AFLAGS) -o $(NAME)
 
 $(OBJ_DIR)/%.o: %.c | $(OBJ_DIR)
-~@$(CC) $(CFLAGS) -c $< -o $@
+~$(CC) $(CFLAGS) -c $< -o $@
 
 $(OBJ_DIR):
-~@mkdir -p $(OBJ_DIR)
+~mkdir -p $(OBJ_DIR)
 
 clean:
-~@rm -rf $(OBJ_DIR)
+~rm -rf $(OBJ_DIR)
 
 fclean: clean
-~@rm -f $(NAME)
+~rm -f $(NAME)
 
 re: fclean all
 

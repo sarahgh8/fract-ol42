@@ -32,7 +32,8 @@ int key_events(int keycode, t_base *base)
         base->x += SHIFTING_SCALES;
     }
 
-    draw_mandelbrot(base->mlx, base->win, *base);
+    // draw_mandelbrot(base);
+
     return (0);
 }
 
@@ -52,18 +53,22 @@ int mouse_events(int mousecode, int x, int y, t_base *base)
 
     if (mousecode == 5) 
     {
-        base->scale /= 1.2;
-        base->x = cursor_x - (cursor_x - base->x) * 1.2; 
-        base->y = cursor_y - (cursor_y - base->y) * 1.2;
+        base->scale /= 1.1;
+        base->x = cursor_x - (cursor_x - base->x) * 1.1; 
+        base->y = cursor_y - (cursor_y - base->y) * 1.1;
+        base->iteri /= 1.009;
+        printf("number if iteration: %Lf\n", base->iteri);
     }
     else if (mousecode == 4) 
     {
-        base->scale *= 1.2; 
-        base->x = cursor_x - (cursor_x - base->x) / 1.2; 
-        base->y = cursor_y - (cursor_y - base->y) / 1.2;
+        base->scale *= 1.1; 
+        base->x = cursor_x - (cursor_x - base->x) / 1.1; 
+        base->y = cursor_y - (cursor_y - base->y) / 1.1;
+        base->iteri *= 1.009;
+        printf("number if iteration: %Lf\n", base->iteri);
     }
 
-    draw_mandelbrot(base->mlx, base->win, *base);
+    // draw_mandelbrot(base);
 
     return 0;
 // void get_coord(double *c_x, double *c_yi, t_base base)

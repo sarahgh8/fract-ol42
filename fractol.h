@@ -7,21 +7,32 @@
 # include <math.h>
 #include <unistd.h>
 
-#define WIDTH 750
-#define HEIGHT 750
+#define WIDTH 500
+#define HEIGHT 500
 # define PLUS 65451
 # define MINUS 65453 
 # define SHIFTING_SCALES 0.01
+
+
+typedef struct s_imgdata
+{
+    int bits_per_pixel;
+	int size_line;
+    int endian;
+    int *buffer;
+    
+}t_imgdata;
 
 typedef struct s_base
 {
     void *mlx;
     void *win;
     void *img;
-    char *buffer;
-    double scale;
-    double x;
-    double y; 
+    long double scale;
+    long double x;
+    long double y;
+    long double iteri;
+    t_imgdata image;
 }   t_base;
 
 typedef struct s_ccomplex
@@ -43,15 +54,9 @@ typedef struct s_vars
     int i;
 }   t_vars;
 
-typedef struct s_imgdata
-{
-    int bits_per_pixel;
-	int size_line;
-    int endian;
-}t_imgdata;
 
-void draw_mandelbrot(void *mlx, void *win, t_base base);
-int is_escaping_mandel(double x, double yi);
+int draw_mandelbrot(t_base *base);
+int is_escaping_mandel(double x, double yi, int iteri);
 void get_coord(double *x, double *y, t_base base);
 int key_events(int keycode, t_base *base);
 int destroy(t_base *base);
