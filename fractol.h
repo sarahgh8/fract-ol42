@@ -33,6 +33,8 @@ typedef struct s_base
     long double y;
     long double iteri;
     t_imgdata image;
+    double p1;
+    double p2;
 }   t_base;
 
 typedef struct s_ccomplex
@@ -61,7 +63,7 @@ typedef struct s_juliapa
 }t_juliapa;
 
 int draw_mandelbrot(t_base *base);
-int is_escaping(double x, double yi, int iteri);
+int is_escaping_mandel(double x, double yi, int iteri);
 void get_coord(double *x, double *y, t_base base);
 int key_events(int keycode, t_base *base);
 int destroy(t_base *base);
@@ -71,4 +73,5 @@ void ft_putstr(char *str);
 int ft_abs(int n);
 int draw_julia(t_base *base);
 double ft_atof(const char *str);
+int is_escaping_julia(double x, double yi, t_base *base);
 #endif

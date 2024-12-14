@@ -38,7 +38,10 @@ int main (int argc, char **argv)
         }
         else if (ft_strcmp(argv[1], "julia") && argc == 4)
         {
-            draw_julia(&base);
+            // printf("%f   %f\n", p1, p2);
+            base.p1 = atof(argv[2]);
+            base.p2 = atof(argv[3]);
+            // draw_julia(&base, base.p1, base.p2);
             mlx_loop_hook(base.mlx, draw_julia, &base);
         }
         else
