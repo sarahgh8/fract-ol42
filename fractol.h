@@ -54,9 +54,14 @@ typedef struct s_vars
     int i;
 }   t_vars;
 
+typedef struct s_juliapa
+{
+    double p1;
+    double p2;
+}t_juliapa;
 
 int draw_mandelbrot(t_base *base);
-int is_escaping_mandel(double x, double yi, int iteri);
+int is_escaping(double x, double yi, int iteri);
 void get_coord(double *x, double *y, t_base base);
 int key_events(int keycode, t_base *base);
 int destroy(t_base *base);
@@ -64,7 +69,6 @@ int mouse_events(int button, int x, int y, t_base *base);
 int ft_strcmp(char *arg, char *str);
 void ft_putstr(char *str);
 int ft_abs(int n);
-// int mouse_events(int mousecode);
-
-
+int draw_julia(t_base *base);
+double ft_atof(const char *str);
 #endif

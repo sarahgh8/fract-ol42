@@ -1,8 +1,9 @@
 #include "fractol.h"
+#include <stdlib.h>
 
 int main (int argc, char **argv)
 {
-    if(argc != 2)
+    if(argc != 2 && argc != 4)
     {
         ft_putstr("Invalid argument\n");
         ft_putstr("Usage: ./fractol mandelbrot\n");
@@ -30,10 +31,15 @@ int main (int argc, char **argv)
         if(!base.win)
             destroy(&base);
         // base.img = mlx_new_image(base.mlx, HEIGHT, WIDTH);
-    
-        if(ft_strcmp(argv[1],"mandelbrot") || ft_strcmp(argv[1],"mandel") || ft_strcmp(argv[1],"Mandelbrot") || ft_strcmp(argv[1],"Mandel")) 
+        printf("%d\n", argc);
+        if(ft_strcmp(argv[1],"mandelbrot")) 
         {
-            // draw_mandelbrot(&base);
+            mlx_loop_hook(base.mlx, draw_mandelbrot, &base);
+        }
+        else if (ft_strcmp(argv[1], "julia") && argc == 4)
+        {
+            draw_julia(&base);
+            mlx_loop_hook(base.mlx, draw_julia, &base);
         }
         else
         {
@@ -45,7 +51,6 @@ int main (int argc, char **argv)
         mlx_mouse_hook(base.win, mouse_events, &base);
         mlx_hook(base.win, 2, 1L<<0, key_events, &base);
         mlx_hook(base.win, 17, 0, destroy, &base);
-        mlx_loop_hook(base.mlx, draw_mandelbrot, &base);
         mlx_loop(base.mlx);
 
     }

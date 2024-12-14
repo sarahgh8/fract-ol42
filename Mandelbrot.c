@@ -26,6 +26,7 @@ int draw_mandelbrot(t_base *base)
 {
     t_vars v;
     t_ccomplex c;
+    int i = 0;
 
     v.x = 0;
     v.y = 0;
@@ -41,7 +42,7 @@ int draw_mandelbrot(t_base *base)
             if(v.i > 0)
             {
                 int offset = v.y * WIDTH + (v.x);
-                base->image.buffer[offset] = 0XFCBE11 * v.i;
+                base->image.buffer[offset] = 0XFCBE11 * base->iteri/v.i + i;  
             }
             else
             {
@@ -53,6 +54,7 @@ int draw_mandelbrot(t_base *base)
         v.x = 0;
         v.y++;
     }
+    i++;
     mlx_put_image_to_window(base->mlx, base->win, base->img, 0, 0);
     return 0;
 }

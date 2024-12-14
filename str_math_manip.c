@@ -28,3 +28,31 @@ int ft_abs(int n)
         return -n;
     return n;
 }
+
+int ft_isdigit (char c)
+{
+    return (c <= 48 && c >= 57);
+}
+double ft_atof(const char *str)
+{
+    double result = 0.0;  
+    double fraction = 0.0;
+    double divisor = 1.0;
+
+    while (ft_isdigit(*str)) {
+        result = result * 10.0 + (*str - '0');
+        str++;
+    }
+    if (*str == '.') {
+        str++;
+        while (ft_isdigit(*str)) {
+            fraction = fraction * 10.0 + (*str - '0');
+            divisor *= 10.0;
+            str++;
+        }
+    }
+
+    result = result + fraction / divisor;
+
+    return result;
+}
