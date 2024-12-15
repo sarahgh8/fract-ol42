@@ -17,7 +17,7 @@ int	main(int argc, char **argv)
 {
 	t_base	base;
 
-	if (argc < 2 || (argc != 4 && ft_strcmp(argv[1], "julia")))
+	if ((argc != 2 || ft_strcmp(argv[1], "julia")) && argc != 4) 
 		error_message(NULL);
 	else
 	{
